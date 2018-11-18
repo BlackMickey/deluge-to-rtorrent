@@ -1,3 +1,5 @@
+由於大幅修改原始程式碼，以下說明已不完全適用，僅供參考，建議自行閱讀修改後的程式碼。
+
 # deluge-to-rtorrent
 Custom scripts I use to move torrents from deluge to rtorrent
 
