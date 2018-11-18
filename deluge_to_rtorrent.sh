@@ -52,21 +52,21 @@ case "$tracker_line" in
   *flacsfor*|*hdbits*|*dmhy*|*passthepopcorn*)
     if [ $Racing_Mode = 1 ]; then
       global_up_max_rate=$($xmlrpc_command throttle.global_up.max_rate | grep integer | awk -F "64-bit integer: " '{print $2}')
-      let max_rate=global_up_max_rate/1024
+      let max_rate = global_up_max_rate/1024
 
 # 若rtorrent當前速度大於等於 Racing_limit_upspeed ，則將速度設為 Non_Racing_limit_upspeed
       if [ $max_rate = $Racing_limit_upspeed ] || [ $max_rate -gt $Racing_limit_upspeed ] || [ $max_rate = 0 ]; then
          $xmlrpc_command throttle.global_up.max_rate.set_kb "" $Non_Racing_limit_upspeed
          echo $(date +"%Y-%m-%d %H:%M:%S") >> ~/rtspeed.log
          echo "Finish Torrent: $torrentname($torrentid)" >> ~/rtspeed.log	 
-		 echo "rTorrent global upload speed: $Non_Racing_limit_upspeed KB/s" >> ~/rtspeed.log	 
+         echo "rTorrent global upload speed: $Non_Racing_limit_upspeed KB/s" >> ~/rtspeed.log	 
 # 否則將速度設為當前速限的2倍
       else
-         let Racing_Mode_limit2_upspeed=max_rate*2
+         let Racing_Mode_limit2_upspeed = max_rate*2
          $xmlrpc_command throttle.global_up.max_rate.set_kb "" $Racing_Mode_limit2_upspeed
          echo $(date +"%Y-%m-%d %H:%M:%S") >> ~/rtspeed.log
          echo "Finish Torrent: $torrentname($torrentid)" >> ~/rtspeed.log	 
-		 echo "rTorrent global upload speed: $Racing_Mode_limit2_upspeed KB/s" >> ~/rtspeed.log	 
+         echo "rTorrent global upload speed: $Racing_Mode_limit2_upspeed KB/s" >> ~/rtspeed.log	 
       fi
     fi
     exit 0
