@@ -116,7 +116,9 @@ else
   echo "$torrentname($torrentid) was added rTorrent fast resume data." >> ~/de2rt.log
 fi
 
-# 從Deluge刪除種子
+# 從Deluge暫停後刪除種子
+sleep 5
+$dc pause $torrentid
 sleep 5
 $dc rm $torrentid
 
